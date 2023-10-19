@@ -42,6 +42,23 @@ Image::Image(const char* path) {
 	//std::cout << "height: " << height << "\n" << std::endl;
 }
 
+Image::Image(const Matrix& r, const Matrix& g, const Matrix& b) {
+	assert((r.rows == g.rows == b.rows) || (r.columns == g.columns == b.columns));
+	this->width = r.columns;
+	this->height = r.rows;
+	pixels = (Matrix*)calloc(3, sizeof(Matrix));
+	pixels[0] = b;
+	pixels[1] = g;
+	pixels[2] = r;
+}
+
+Image::Image(const Matrix& values) {
+	this->width = values.columns;
+	this->height = values.rows;
+	pixels = (Matrix*)calloc(3, sizeof(Matrix));
+	pixels[0] = pixels[1] = pixels[2] = values;
+}
+
 Image::~Image() {
 	free(pixels);
 }

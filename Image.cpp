@@ -15,6 +15,15 @@ Image::Image(int width, int height) {
 	}
 }
 
+Image::Image(const Image& copy) {
+	this->width = copy.width;
+	this->height = copy.height;
+	pixels = (Matrix*)calloc(3, sizeof(Matrix));
+	for (int i = 0; i < 3; i++) {
+		pixels[i] = copy.pixels[i];
+	}
+}
+
 Image::Image(const char* path) {
 	std::ifstream file(path, std::ios::binary);
 	width = imgProcUtils::varFromFile(path, 18);
